@@ -25,13 +25,13 @@ namespace Holodos
                 switch(choice)
                 {
                     case "1":
-                        ShowMainCompartmentMenu();
+                        ShowMain();
                         break;
                         case "2":
-                        ShowDoorShelfMenu();
+                        ShowDoor();
                         break;
                         case "3":
-                        ShowFreezerMenu();
+                        ShowFreezer();
                         break;
                     case "0":
                         isRunning = false;
@@ -42,7 +42,7 @@ namespace Holodos
                 }
             }
         }
-        static void ShowMainCompartmentMenu()
+        static void ShowMain()
         {
             bool inCompartment = true;
 
@@ -66,8 +66,17 @@ namespace Holodos
                     case "2":
                         Console.Write("Какой продукт взять? ");
                         string productName = Console.ReadLine();
+                        if (main.TakeProduct(productName))
+                        {
+                            Console.WriteLine("Продукт взят :))");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Продукта нет в отсеке :((");
+                        }
                         main.TakeProduct(productName);
                         break;
+
                     case "3":
                         Console.Write("Введите название продукта: ");
                         string newProductName = Console.ReadLine();
@@ -88,7 +97,7 @@ namespace Holodos
             }
         }
 
-        static void ShowDoorShelfMenu()
+        static void ShowDoor()
         {
             bool inCompartment = true;
 
@@ -111,15 +120,23 @@ namespace Holodos
                     case "2":
                         Console.Write("Какой продукт взять? ");
                         string productName = Console.ReadLine();
+                        if (door.TakeProduct(productName))
+                        {
+                            Console.WriteLine("Продукт взят :))");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Продукта нет в отсеке :((");
+                        }
                         door.TakeProduct(productName);
                         break;
                     case "3":
                         Console.Write("Введите название продукта: ");
                         string newProductName = Console.ReadLine();
 
-                        Product product = new Product();
-                        product.Name = newProductName;
-                        door.PutProduct(product);
+                        Product eda = new Product();
+                        eda.Name = newProductName;
+                        door.PutProduct(eda);
 
                         Console.WriteLine($"Продукт '{newProductName}' добавлен");
                         break;
@@ -133,7 +150,7 @@ namespace Holodos
             }
         }
 
-        static void ShowFreezerMenu()
+        static void ShowFreezer()
         {
             bool inCompartment = true;
 
@@ -156,6 +173,14 @@ namespace Holodos
                     case "2":
                         Console.Write("Какой продукт взять? ");
                         string productName = Console.ReadLine();
+                        if (freezer.TakeProduct(productName))
+                        {
+                            Console.WriteLine("Продукт взят :))");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Продукта нет в отсеке :((");
+                        }
                         freezer.TakeProduct(productName);
                         break;
                     case "3":
