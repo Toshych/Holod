@@ -81,9 +81,9 @@ namespace Holodos
                         Console.Write("Введите название продукта: ");
                         string newProductName = Console.ReadLine();
 
-                        Product product = new Product();
-                        product.Name = newProductName;
-                        main.PutProduct(product);
+                        Product eda = new Product();
+                        eda.Name = newProductName;
+                        main.PutProduct(eda);
 
                         Console.WriteLine($"Продукт '{newProductName}' добавлен");
                         break;
@@ -187,9 +187,9 @@ namespace Holodos
                         Console.Write("Введите название продукта: ");
                         string newProductName = Console.ReadLine();
 
-                        Product product = new Product();
-                        product.Name = newProductName;
-                        freezer.PutProduct(product);
+                        Product eda = new Product();
+                        eda.Name = newProductName;
+                        freezer.PutProduct(eda);
 
                         Console.WriteLine($"Продукт '{newProductName}' добавлен");
                         break;
