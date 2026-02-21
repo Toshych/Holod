@@ -7,8 +7,16 @@ namespace Holodos
         static MainCompartment main = new MainCompartment();
         static DoorShelf door = new DoorShelf();
         static Freezer freezer = new Freezer();
+
+
         static void Main()
         {
+            main.LoadFile();
+            door.LoadFile();
+            freezer.LoadFile();
+            Thread.Sleep(1000);
+            Console.Clear();
+
             bool isRunning = true;
 
             while (isRunning)
@@ -34,6 +42,9 @@ namespace Holodos
                         ShowFreezer();
                         break;
                     case "0":
+                        main.SaveFile();
+                        door.SaveFile();
+                        freezer.SaveFile();
                         isRunning = false;
                         break;
                         default:
@@ -64,26 +75,47 @@ namespace Holodos
                         main.ShowProducts();
                         break;
                     case "2":
+
+                        Console.WriteLine("\nДоступные продукты:");
+                        if (main.GetProducts() == 0)
+                        {
+                            Console.WriteLine("В отсеке нет продуктов!");
+                            break;
+                        }
+
+                        main.ShowProducts();
+
                         Console.Write("Какой продукт взять? ");
                         string productName = Console.ReadLine();
                         if (main.TakeProduct(productName))
                         {
                             Console.WriteLine("Продукт взят :))");
+                            main.SaveFile();
                         }
                         else
                         {
                             Console.WriteLine("Продукта нет в отсеке :((");
                         }
-                        main.TakeProduct(productName);
+
                         break;
 
                     case "3":
-                        Console.Write("Введите название продукта: ");
-                        string newProductName = Console.ReadLine();
+                        string newProductName = "";
+                        do
+                        {
+                            Console.Write("Введите название продукта (макс. 30 символов): ");
+                            newProductName = Console.ReadLine()?.Trim() ?? "";
+
+                            if (newProductName.Length > 30)
+                            {
+                                Console.WriteLine("Ошибка! Максимум 30 символов");
+                            }
+                        } while (newProductName.Length > 30);
 
                         Product eda = new Product();
                         eda.Name = newProductName;
                         main.PutProduct(eda);
+                        main.SaveFile();
 
                         Console.WriteLine($"Продукт '{newProductName}' добавлен");
                         break;
@@ -118,25 +150,41 @@ namespace Holodos
                         door.ShowProducts();
                         break;
                     case "2":
+                        Console.WriteLine("\nДоступные продукты:");
+                        if (door.GetProducts() == 0)
+                        {
+                            Console.WriteLine("В отсеке нет продуктов!");
+                            break;
+                        }
                         Console.Write("Какой продукт взять? ");
                         string productName = Console.ReadLine();
                         if (door.TakeProduct(productName))
                         {
                             Console.WriteLine("Продукт взят :))");
+                            door.SaveFile();
                         }
                         else
                         {
                             Console.WriteLine("Продукта нет в отсеке :((");
                         }
-                        door.TakeProduct(productName);
                         break;
                     case "3":
-                        Console.Write("Введите название продукта: ");
-                        string newProductName = Console.ReadLine();
+                        string newProductName = "";
+                        do
+                        {
+                            Console.Write("Введите название продукта (макс. 30 символов): ");
+                            newProductName = Console.ReadLine()?.Trim() ?? "";
+
+                            if (newProductName.Length > 30)
+                            {
+                                Console.WriteLine("Ошибка! Максимум 30 символов");
+                            }
+                        } while (newProductName.Length > 30);
 
                         Product eda = new Product();
                         eda.Name = newProductName;
                         door.PutProduct(eda);
+                        door.SaveFile();
 
                         Console.WriteLine($"Продукт '{newProductName}' добавлен");
                         break;
@@ -171,25 +219,41 @@ namespace Holodos
                         freezer.ShowProducts();
                         break;
                     case "2":
+                        Console.WriteLine("\nДоступные продукты:");
+                        if (freezer.GetProducts() == 0)
+                        {
+                            Console.WriteLine("В отсеке нет продуктов!");
+                            break;
+                        }
                         Console.Write("Какой продукт взять? ");
                         string productName = Console.ReadLine();
                         if (freezer.TakeProduct(productName))
                         {
                             Console.WriteLine("Продукт взят :))");
+                            freezer.SaveFile();
                         }
                         else
                         {
                             Console.WriteLine("Продукта нет в отсеке :((");
                         }
-                        freezer.TakeProduct(productName);
                         break;
                     case "3":
-                        Console.Write("Введите название продукта: ");
-                        string newProductName = Console.ReadLine();
+                        string newProductName = "";
+                        do
+                        {
+                            Console.Write("Введите название продукта (макс. 30 символов): ");
+                            newProductName = Console.ReadLine()?.Trim() ?? "";
+
+                            if (newProductName.Length > 30)
+                            {
+                                Console.WriteLine("Ошибка! Максимум 30 символов");
+                            }
+                        } while (newProductName.Length > 30);
 
                         Product eda = new Product();
                         eda.Name = newProductName;
                         freezer.PutProduct(eda);
+                        freezer.SaveFile();
 
                         Console.WriteLine($"Продукт '{newProductName}' добавлен");
                         break;

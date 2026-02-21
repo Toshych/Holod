@@ -1,5 +1,5 @@
 ﻿
-
+using System.IO;
 namespace Holodos
 {
     public class Product
@@ -9,9 +9,56 @@ namespace Holodos
 
         public abstract class Compartment
         {
+        public int GetProducts()
+        {
+            return shelf.Count;
+        }
         public string Name;
 
         protected List<Product> shelf = new List<Product>();
+
+        public void SaveFile()
+        {
+            string holodilnik =  $"{ this.GetType().Name }.txt";
+
+            using (StreamWriter writer = new StreamWriter(holodilnik))
+            {
+                foreach (Product product in shelf)
+                {
+                    writer.WriteLine(product.Name);
+                }
+            }
+            Console.WriteLine("Продукты сохранены в файл");
+        }
+
+
+
+        public void LoadFile ()
+        {
+            string holodilnik = $"{this.GetType().Name}.txt";
+
+            if (File.Exists(holodilnik))
+            {
+                shelf.Clear();
+
+                string[] lines = File.ReadAllLines(holodilnik);
+
+                foreach (string line in lines)
+                {
+                    if (!string.IsNullOrWhiteSpace(line))
+                    {
+                        Product eda = new Product(); 
+                        eda.Name = line.Trim();
+                        shelf.Add(eda);
+                    }
+                }
+                Console.WriteLine("Продукты загружены из файла");
+            }
+            else
+            {
+                Console.WriteLine("Файл не найден, начинаем с пустым отсеком");
+            }
+        }
             public void PutProduct(Product Eda)
             {
                 shelf.Add(Eda);
